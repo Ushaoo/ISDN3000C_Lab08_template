@@ -7,4 +7,4 @@ data/
 *.ckpt
 *.csv
 *.json
-*.jpg
+*.pth

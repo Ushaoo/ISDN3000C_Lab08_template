@@ -1,0 +1,90 @@
+
+================================================================================
+PART 3 FINAL CHALLENGE - Phase I 
+================================================================================
+
+Step 3.1 to 3.4
+
+================================================================================
+SECTION 1: PROBLEM STATEMENT & APPROACH
+================================================================================
+
+1.1 Problem Statement
+─────────────────────
+Clearly state what problem you're solving:
+  * Dataset: Food-101 (101 food categories, ~101k images, or subset)
+  * Objective: Build a CNN classifier to accurately classify food images into 101 categories
+  * Performance Goal: Achieve >60% accuracy on the test set
+  * Constraints: Limited computational resources, training time constraints
+
+
+
+1.2 Approach
+────────────────────
+Describe baseline approach (step 3.3):
+  * Model architecture: Custom CNN with 4 convolutional blocks
+  * Training strategy: Adam optimizer with learning rate scheduling and early stopping
+  * Data handling: Image augmentation, resizing to 224x224, ImageNet normalization
+  * Evaluation: Accuracy, precision, recall, F1-score
+
+
+
+================================================================================
+SECTION 2: IMPLEMENTATION DETAILS
+================================================================================
+
+2.1 Model Architecture
+──────────────────────
+Describe the baseline model in step 3.2:
+
+a) Architecture Choice: Custom CNN
+
+   Custom CNN:
+     * Number of layers: 4 convolutional blocks + 3 fully connected layers
+     * Filter progression: 32 -> 64 -> 128 -> 256
+     * Total parameters: ~3.2M
+     * Key components: Batch normalization, ReLU activation, dropout, global average pooling
+
+
+
+2.2 Data Pipeline
+─────────────────
+Describe your data handling:
+
+a) Data Augmentation:
+   * Techniques used: Random horizontal/vertical flips, rotation, color jitter, affine transformations
+   * Why: To increase model generalization and prevent overfitting
+   * Effect on training: Improved model robustness to variations in food images
+
+
+b) Data Preprocessing:
+   * Image size: 224x224
+   * Normalization: ImageNet statistics (mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+   * Train/test split: Built-in Food-101 split (75,750 training / 25,250 test)
+   * Batch size: 32
+
+
+
+2.3 Training Configuration
+──────────────────────────
+Document your training setup:
+
+a) Hyperparameters:
+   * Learning rate: 0.001
+   * Optimizer: Adam with weight decay
+   * Loss function: CrossEntropyLoss
+   * Batch size: 32
+   * Epochs: 15
+
+
+b) Regularization:
+   * Dropout: 0.5 in FC layers, 0.15 in conv blocks
+   * Weight decay: 1e-4
+   * Early stopping: Patience of 5 epochs
+   * Others: Gradient clipping with max_norm=1.0
+
+c) Learning Rate Schedule:
+   * Type: ReduceLROnPlateau
+   * Parameters: factor=0.5, patience=3, min_lr=1e-6
+
+================================================================================
